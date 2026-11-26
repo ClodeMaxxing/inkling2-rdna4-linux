@@ -1,0 +1,35 @@
+#!/bin/sh
+# Inkling 2 Mini on SaloQT/rdna4-amd-infer (ie-serve), Linux, one RX 9070 XT 16 GB.
+# The profile measured in docs/RESULTS.md section 2. Edit the three paths, install as /usr/local/bin/inkling-ie.
+#
+# Engine: commit 90c7d21, source untouched, built with AMD clang 24 (docs/BUILD.md).
+# Weights: AtomicChat Inkling-2-Mini-AD-IQ3_XXS -> convert/ink_loopconv.py (01-23) -> convert/ink_requant_head.py.
+# Drafter: Unsloth dspark-Inkling-2-Mini-Q8_0.gguf -> convert/ink_dsparkconv.py --q8.
+ENGINE=/opt/rdna4-amd-infer/engine          # the engine checkout's engine/ directory
+BUILD=build                                 # its build directory (ie-serve and the .hsaco files)
+MODELS=/srv/models/inkling-2-mini           # where the converted files are
+MODEL=$MODELS/ie-01-23-fast.gguf
+DRAFTER=$MODELS/ie-dspark-q8.gguf
+CTX=196608                                  # about 9 MiB of card memory per 1,000 tokens with the 4-bit global cache
+PORT=8195
+HOST=127.0.0.1                              # no API key is set: keep it on loopback or behind a firewall
+DRAFT=1                                     # 0: run without the drafter
+
+cd "$ENGINE" || exit 2
+# 4-bit rotated cache on the 8 global layers, f16 on the sliding-window layers.
+export IE_INK_GLOB_KV=q4rot
+# Reserve the whole context cache at start and never hand it back: a memory shortage then fails the start, not a long
+# conversation. (IE_KV_GROW=0 is refused together with the 4-bit global cache.)
+export IE_KV_PREMAP=$CTX IE_KV_SHRINK=0
+# Above 131,072 context the engine lowers the prompt chunk to 512 unless a Windows-only memory check passes.
+export IE_CHUNK_FORCE=1
+DS="--draft 0"
+if [ "$DRAFT" = 1 ]; then
+  # Split head, vocabulary shortlist (needs the Q4_K output head), 8K drafter window, on-the-fly RoPE.
+  export IE_DS_SPLIT=1 IE_DS_SHORTLIST=1 IE_DS_GLOB_WIN=8192 IE_DS_ROPE_OTF=1
+  DS="--dspark $DRAFTER --draft 7 --draft-pmin 0.45"
+fi
+exec ./$BUILD/ie-serve "$MODEL" --backend gpu --hsaco "$ENGINE/$BUILD/ie_kernels.hsaco" \
+  --host $HOST --port $PORT --name inkling2-mini-ie --ctx $CTX --chunk 1024 $DS \
+  --think-temp 1.0 --top-k 20 --effort ${INKLING_EFFORT:-low} \
+  --dry-multiplier 0.8 --dry-base 1.75 --dry-allowed-length 24 --tool-temp 0

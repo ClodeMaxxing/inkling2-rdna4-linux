@@ -1,0 +1,35 @@
+plain | code-tokens.txt | 116.3 tokens/s | - | ids 909ed4 uniq 91 | 
+q8head d5 p0.3 | code-tokens.txt | 167.8 tokens/s | 3.02 tokens per step | ids 7e5a60 uniq 109 | 
+q8head d5 p0.45 | code-tokens.txt | 188.7 tokens/s | 3.50 tokens per step | ids 624298 uniq 93 | 
+q8head d5 p0.6 | code-tokens.txt | 199.8 tokens/s | 3.50 tokens per step | ids 0c6b0d uniq 93 | 
+q8head d7 p0.3 | code-tokens.txt | 183.7 tokens/s | 3.73 tokens per step | ids 909ed4 uniq 91 | 
+q8head d7 p0.45 | code-tokens.txt | 188.8 tokens/s | 3.69 tokens per step | ids 0c6b0d uniq 93 | 
+q8head d7 p0.6 | code-tokens.txt | 197.7 tokens/s | 3.56 tokens per step | ids 0c6b0d uniq 93 | 
+q8head d8 p0.3 | code-tokens.txt | 184.0 tokens/s | 3.73 tokens per step | ids 909ed4 uniq 91 | 
+q8head d8 p0.45 | code-tokens.txt | 188.5 tokens/s | 3.69 tokens per step | ids 0c6b0d uniq 93 | 
+q8head d8 p0.6 | code-tokens.txt | 197.8 tokens/s | 3.56 tokens per step | ids 0c6b0d uniq 93 | 
+FAST plain | code-tokens.txt | 121.3 tokens/s | - | ids 909ed4 uniq 91 | 
+FAST d7 p0.45 noshort | code-tokens.txt | 202.5 tokens/s | 3.76 tokens per step | ids 909ed4 uniq 91 | 
+FAST d7 p0.45 shortlist | code-tokens.txt | 198.5 tokens/s | 3.66 tokens per step | ids 909ed4 uniq 91 | 
+FAST d8 p0.3 shortlist | code-tokens.txt | 187.3 tokens/s | 3.69 tokens per step | ids 0c6b0d uniq 93 | 
+plain | gen-tokens.txt | 116.0 tokens/s | - | ids 4c962d uniq 23 | 
+q8head d5 p0.3 | gen-tokens.txt | 224.6 tokens/s | 4.48 tokens per step | ids 1dbc96 uniq 25 | 
+q8head d5 p0.45 | gen-tokens.txt | 211.1 tokens/s | 3.95 tokens per step | ids c6ce09 uniq 25 | 
+q8head d5 p0.6 | gen-tokens.txt | 212.9 tokens/s | 4.29 tokens per step | ids 609d71 uniq 22 | 
+q8head d7 p0.3 | gen-tokens.txt | 198.0 tokens/s | 4.03 tokens per step | ids d5d96a uniq 27 | 
+q8head d7 p0.45 | gen-tokens.txt | 201.4 tokens/s | 3.95 tokens per step | ids 61ab5e uniq 18 | 
+q8head d7 p0.6 | gen-tokens.txt | 202.2 tokens/s | 3.91 tokens per step | ids 61ab5e uniq 18 | 
+q8head d8 p0.3 | gen-tokens.txt | 197.9 tokens/s | 4.03 tokens per step | ids d5d96a uniq 27 | 
+q8head d8 p0.45 | gen-tokens.txt | 201.4 tokens/s | 3.95 tokens per step | ids 61ab5e uniq 18 | 
+q8head d8 p0.6 | gen-tokens.txt | 202.3 tokens/s | 3.91 tokens per step | ids 61ab5e uniq 18 | 
+FAST plain | gen-tokens.txt | 120.7 tokens/s | - | ids 6b2b1b uniq 23 | 
+FAST d7 p0.45 noshort | gen-tokens.txt | 210.2 tokens/s | 4.07 tokens per step | ids 77765c uniq 27 | 
+FAST d7 p0.45 shortlist | gen-tokens.txt | 226.6 tokens/s | 4.29 tokens per step | ids 6b2b1b uniq 23 | 
+FAST d8 p0.3 shortlist | gen-tokens.txt | 227.8 tokens/s | 4.38 tokens per step | ids 1dbc96 uniq 25 | 
+exp IE_MK_INKLING=1 | code-tokens.txt | 185.2 tokens/s | 3.56 tokens per step | ids 624298 uniq 93 | 
+exp IE_INKLING_GRAPH=2 | code-tokens.txt | 188.3 tokens/s | 3.69 tokens per step | ids 0c6b0d uniq 93 | 
+exp IE_DS_TREE=1 | code-tokens.txt | 188.4 tokens/s | 3.69 tokens per step | ids 0c6b0d uniq 93 | 
+exp IE_DS_FORESPARK=1 | code-tokens.txt | 188.4 tokens/s | 3.69 tokens per step | ids 0c6b0d uniq 93 | 
+exp IE_DS_OVERLAP=1 | code-tokens.txt | 189.7 tokens/s | 3.69 tokens per step | ids 0c6b0d uniq 93 | 
+exp IE_DS_GLOB_WIN=auto16k | code-tokens.txt | 188.4 tokens/s | 3.69 tokens per step | ids 0c6b0d uniq 93 | 
+SWEEPDONE

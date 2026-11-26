@@ -1,0 +1,28 @@
+# Inkling 2 Mini on ie-serve (rdna4-amd-infer). Change User/Group, then:
+#   sudo install -m 755 inkling-ie /usr/local/bin/inkling-ie
+#   sudo install -m 644 inkling-ie.service /etc/systemd/system/ && sudo systemctl daemon-reload
+#   sudo systemctl start inkling-ie        (add "enable" if it should start at boot)
+#   journalctl -u inkling-ie -f            (one line per request: tokens, speeds, cache use)
+# The service needs the whole card. If another service uses the same GPU, list it under Conflicts=.
+[Unit]
+Description=Inkling 2 Mini on ie-serve (rdna4-amd-infer)
+After=network.target
+StartLimitIntervalSec=600
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=CHANGE_ME
+Group=CHANGE_ME
+SupplementaryGroups=render video
+ExecStart=/usr/local/bin/inkling-ie
+KillMode=control-group
+TimeoutStopSec=20
+# An over-full card makes the engine exit; with the cache reserved at start that shows up here as a failed start.
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

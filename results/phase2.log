@@ -1,0 +1,27 @@
+== 30K perplexity, 4-bit output head, q4rot cache (vs the f16 + 8-bit-head reference)
+kld: 29999 positions, mean 0.010891, median 0.002330, p90 0.027845, p99 0.104548, p99.9 0.325014, max 2.403499, same top token 96.55%, ppl 3.0589 (reference 3.0494)
+ppl: 29999 tokens scored, mean nll 1.118063, perplexity 3.0589
+== server profile 196k-fast
+ gpu: --chunk 1024 clamped to 512 (n_ctx 196608 >= 131072; set IE_CHUNK_FORCE=1 to override)
+ gpu: dspark 2-tier shortlist T0=28672 -> T1=61440 + 4096 dynamic tail (+0.256 MiB VRAM, 0 MB extra VRAM)
+ gpu: VRAM free after loading: 1168 MB of 17096 MB; 1631 device allocations
+vram after load 15487
+start vram 15487 MiB; source chars 513108
+{"k": 55, "prompt_tokens": 59547, "cached": 0, "read_tps": 4105, "gen_tps": 127.5, "wall_s": 17.0, "vram_after": 15516, "recall": true, "recall_any": true, "answer": "PELICAN-7055\n\nIt\u2019s a C OpenAI-compatible HTTP server (\u201cie-serve\u201d) that loads one GGUF model, tokenizes chat prompts,
+{"k": 172, "prompt_tokens": 190703, "cached": 0, "read_tps": 3072, "gen_tps": 129.1, "wall_s": 65.3, "vram_after": 15516, "recall": true, "recall_any": true, "answer": "PELICAN-7172\n\nThis is a C OpenAI-compatible HTTP server (ie-serve) that loads a GGUF model and serves /v1/chat/completions with o
+"name": "code#1"	"gen_tps": 195.2	"tok_per_step": 3.1
+"name": "edit#1"	"gen_tps": 224.2	"tok_per_step": 3.99
+"name": "prose#1"	"gen_tps": 139.1	"tok_per_step": 1.92
+active
+== server profile 196k-fast-force
+ gpu: dspark 2-tier shortlist T0=28672 -> T1=61440 + 4096 dynamic tail (+0.256 MiB VRAM, 0 MB extra VRAM)
+ gpu: VRAM free after loading: 1017 MB of 17096 MB; 1631 device allocations
+vram after load 15631
+start vram 15631 MiB; source chars 513108
+{"k": 55, "prompt_tokens": 59547, "cached": 0, "read_tps": 4664, "gen_tps": 127.8, "wall_s": 15.2, "vram_after": 15660, "recall": true, "recall_any": true, "answer": "PELICAN-7055\n\nIt\u2019s a C OpenAI-compatible HTTP server (\u201cie-serve\u201d) that loads one GGUF model, tokenizes chat prompts,
+{"k": 172, "prompt_tokens": 190703, "cached": 0, "read_tps": 3430, "gen_tps": 128.9, "wall_s": 58.9, "vram_after": 15660, "recall": true, "recall_any": true, "answer": "PELICAN-7172\n\nThis is a C OpenAI-compatible HTTP server (ie-serve) that loads a GGUF model and serves /v1/chat/completions with o
+"name": "code#1"	"gen_tps": 195.4	"tok_per_step": 3.1
+"name": "edit#1"	"gen_tps": 224.2	"tok_per_step": 3.99
+"name": "prose#1"	"gen_tps": 139.1	"tok_per_step": 1.92
+active
+PHASE2DONE
